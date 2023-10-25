@@ -10,11 +10,12 @@ docker --version
 sudo systemctl start docker
 sudo systemctl enable docker
 
-
+sudo swapoff -a
 sudo apt-get update
-###########################################################################################
-#	apt-transport-https may be a dummy package; if so, you can skip that package      #
-###########################################################################################
+
+===========================================================================================
+=	apt-transport-https may be a dummy package; if so, you can skip that package      =
+===========================================================================================
 
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 mkdir -p /etc/apt/keyrings
@@ -24,34 +25,41 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
-# upto her both in master and node
+####### upto her both in master and node #######
 
-# run this below command on master
+####### run this below command on master ###########
+
 kubeadm init
-	# follow the steps after running this
-	# run 4 command one by one which you will get after running kubeadm init
-	# copy the token from master and save it past it on the worker node.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	### run 4 command one by one which you will get after running kubeadm init
+	### copy the token from master and save it past it on the worker node to establish connection between them.
 
-   # command look like this 
+ ### command look like this 
 	mkdir -p $HOME/.kube
 	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 	sudo chown $(id -u):$(id -g) $HOME/.kube/config
 	EXPORT.......
 
-   # token like this
+  ### token like this, which should be past in on the worker node
 	kubeadm join 172.31.41.116:6443 --token 6hhty0.us8oldyrgs6yn6b3 --discovery-token-ca-cert-hash sha256:046c3fa............
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-# run this below command on the master 
+###### run this below command on the master######
+
 curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.3/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 
 kubectl get nodes
 kubectl get pods -A
+
 # the deployment.yml and service.yml
 
-##################################################################
+######################################################################################################################################################################################
 
 
+########################################
+#  Method-2 of kubernetes installation #
+########################################
 
 sudo su
 sudo apt-get update
