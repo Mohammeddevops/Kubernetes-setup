@@ -3,20 +3,18 @@
 # 	            Kubernetes installation			 #
 ##################################################################
 
-sudo apt-get update && apt-get upgrade
-sudo apt-get upgrade
+sudo apt-get update && apt-get upgrade -y
 
 ##################################################################
 #                   Successfully updated                         #
 ##################################################################
 
 
-
 ##################################################################
 #                      Installing Docker                     	 #
 ##################################################################
 
-sudo apt install docker.io
+sudo apt install docker.io -y
 docker --version
 sudo systemctl start docker
 sudo systemctl enable docker
@@ -25,9 +23,8 @@ sudo systemctl enable docker
 #                 Docker installed Successfully 		 # 
 ##################################################################
 
-
 sudo swapoff -a
-sudo apt-get update && apt-get upgrade
+sudo apt-get update && apt-get upgrade -y
 
 ###########################################################################################
 #	apt-transport-https may be a dummy package; if so, you can skip that package      #
@@ -73,7 +70,7 @@ spec:
 EOF
 
 ls
-kubectl apply -f deplyment.yml
+kubectl apply -f deployment.yml
 
 ##################################################################
 #                          Service.yml	    			 # 
@@ -96,6 +93,8 @@ EOF
 
 ls
 kubectl apply -f service.yml
+
+sudo apt-get update && apt-get upgrade -y
 
 echo "Kubernetes setup completed successfully."
 
