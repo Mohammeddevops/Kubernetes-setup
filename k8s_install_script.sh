@@ -3,7 +3,6 @@
 # 	            Kubernetes installation			 #
 ##################################################################
 
-sudo su
 sudo apt-get update && apt-get upgrade
 sudo apt-get upgrade
 
