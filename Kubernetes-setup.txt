@@ -30,19 +30,19 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ####### run this below command on master ###########
 
 kubeadm init
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	### run 4 command one by one which you will get after running kubeadm init
 	### copy the token from master and save it past it on the worker node to establish connection between them.
 
  ### command look like this 
-	mkdir -p $HOME/.kube
-	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-	sudo chown $(id -u):$(id -g) $HOME/.kube/config
-	EXPORT.......
+#	mkdir -p $HOME/.kube
+#	sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#	sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#	EXPORT.......
 
   ### token like this, which should be past in on the worker node
-	kubeadm join 172.31.41.116:6443 --token 6hhty0.us8oldyrgs6yn6b3 --discovery-token-ca-cert-hash sha256:046c3fa............
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#	kubeadm join 172.31.41.116:6443 --token 6hhty0.us8oldyrgs6yn6b3 --discovery-token-ca-cert-hash sha256:046c3fa............
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ###### run this below command on the master######
 
