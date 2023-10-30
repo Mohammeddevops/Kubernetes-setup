@@ -1,8 +1,8 @@
 ##################################################################
-# 			   Kubernetes  				 #
+# 	            Kubernetes installation			 #
 ##################################################################
 
-sudo apt update
+sudo apt update && apt upgrade
 sudo apt upgrade
 
 sudo apt install docker.io
@@ -11,17 +11,17 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 sudo swapoff -a
-sudo apt-get update
+sudo apt update && apt upgrade
 
-===========================================================================================
-=	apt-transport-https may be a dummy package; if so, you can skip that package      =
-===========================================================================================
+###########################################################################################
+#	apt-transport-https may be a dummy package; if so, you can skip that package      #
+###########################################################################################
 
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
+sudo apt-get update && apt-get upgrade
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
@@ -55,7 +55,7 @@ kubectl get deploy
 kubectl get svc
 kubectl get pods -o wide
 
-# the deployment.yml and service.yml
+# set the deployment.yml and service.yml
 
 ###############################################################################
 #			      deployment.yml				      #
@@ -78,17 +78,36 @@ spec:
       - name: cicd-app
         image: mohammedsait/insurance-web-app-cicd  # Replace with your Docker image name and tag
         ports:
-        - containerPort: 8080  # Assuming your app listens on port 3000
+        - containerPort: 8080  # Assuming your app listens on port in Dockerfile
+
 #########################################################################################################################################################################
 
 kubectl apply -f deplyment.yml
+
+# now write the service.yml file 
 
 #####################################################################################
 #				service.yml 					    #
 #####################################################################################
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: cicd-app
+spec:
+  selector:
+    app: cicd-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080  # Assuming your app runs on port which is set in the Dockerfile
+  type: NodePort  # Expose the service outside the cluster
 
+####################################################################################################################################################################
 
 kubectl apply -f service.yml
+kubectl get deploy
+kubectl get svc
+kubectl get pods -o wide
 
 
