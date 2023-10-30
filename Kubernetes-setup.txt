@@ -57,7 +57,37 @@ kubectl get pods -o wide
 
 # the deployment.yml and service.yml
 
+###############################################################################
+#			      deployment.yml				      #
+###############################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-app
+spec:
+  replicas: 1  # Initial replicas
+  selector:
+    matchLabels:
+      app: cicd-app
+  template:
+    metadata:
+      labels:
+        app: cicd-app
+    spec:
+      containers:
+      - name: cicd-app
+        image: mohammedsait/insurance-web-app-cicd  # Replace with your Docker image name and tag
+        ports:
+        - containerPort: 8080  # Assuming your app listens on port 3000
+#########################################################################################################################################################################
+
 kubectl apply -f deplyment.yml
+
+#####################################################################################
+#				service.yml 					    #
+#####################################################################################
+
+
 
 kubectl apply -f service.yml
 
